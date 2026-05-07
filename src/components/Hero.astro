@@ -1,0 +1,165 @@
+---
+import "../styles/hero.css";
+
+const VIMEO_ID = "824804225";
+
+const tickerItems = [
+  "Video Editing",
+  "Reels & Shorts",
+  "Motion Graphics",
+  "Brand Films",
+  "Commercial Ads",
+  "Color Grading",
+  "Sound Design",
+  "Content Creation",
+];
+---
+
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+
+  <!-- Top content -->
+  <div class="hero-content">
+    <!-- Label -->
+    <div class="hero-label">
+      <span class="hero-label-dot"></span>
+      Available for new projects
+    </div>
+
+    <!-- Headline -->
+    <h1 class="hero-headline">
+      <span class="headline-line headline-line-1">
+        <span>This Is What Great Editing</span>
+      </span>
+      <span class="headline-line headline-line-2">
+        <span>Looks Like.</span>
+      </span>
+    </h1>
+
+    <!-- Subtext -->
+    <p class="hero-subtext">
+      From reels to brand films — crafted with emotion, made to leave a lasting
+      impression.
+    </p>
+
+    <!-- CTA Row -->
+    <div class="hero-cta-row">
+      <a href="#contact" class="btn-primary">
+        <i class="fa-solid fa-calendar"></i>
+        Book a Free Call
+      </a>
+
+      <div class="social-proof">
+        <div class="avatar-stack">
+          <img src="https://i.pravatar.cc/100?img=1" alt="Client" />
+          <img src="https://i.pravatar.cc/100?img=2" alt="Client" />
+          <img src="https://i.pravatar.cc/100?img=3" alt="Client" />
+        </div>
+        <div class="social-proof-text">
+          <span class="social-proof-stars">★★★★★</span>
+          <span class="social-proof-label">
+            Trusted by <strong>50+ creators</strong>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Card -->
+  <div class="hero-video-card">
+    <div class="video-card-inner">
+      <iframe
+        src={`https://player.vimeo.com/video/${VIMEO_ID}?autoplay=0&title=0&byline=0&portrait=0&dnt=1`}
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- Brand Ticker -->
+  <div class="hero-ticker">
+    <div class="ticker-track">
+      {
+        [...tickerItems, ...tickerItems].map((item) => (
+          <span class="ticker-item">
+            <span class="ticker-dot" />
+            {item}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+
+  const tl = gsap.timeline({ delay: 0.2 });
+
+  // 1. Label
+  tl.to(".hero-label", {
+    opacity: 1,
+    duration: 0.5,
+    ease: "power2.out",
+  });
+
+  // 2. Headline lines
+  tl.to(
+    ".headline-line span",
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      ease: "power3.out",
+      stagger: 0.15,
+    },
+    "-=0.2"
+  );
+
+  // 3. Subtext
+  tl.to(
+    ".hero-subtext",
+    { opacity: 1, duration: 0.6, ease: "power2.out" },
+    "-=0.3"
+  );
+
+  // 4. CTA row
+  tl.to(
+    ".hero-cta-row",
+    { opacity: 1, duration: 0.5, ease: "power2.out" },
+    "-=0.3"
+  );
+
+  // 5. Video card
+  tl.to(
+    ".hero-video-card",
+    { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" },
+    "-=0.2"
+  );
+
+  // 6. Ticker
+  tl.to(".hero-ticker", { opacity: 1, duration: 0.5 }, "-=0.4");
+
+  // Magnetic CTA
+  const btnPrimary = document.querySelector(".btn-primary") as HTMLElement;
+
+  btnPrimary?.addEventListener("mousemove", (e: MouseEvent) => {
+    const rect = btnPrimary.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    gsap.to(btnPrimary, {
+      x: x * 0.25,
+      y: y * 0.25,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  });
+
+  btnPrimary?.addEventListener("mouseleave", () => {
+    gsap.to(btnPrimary, {
+      x: 0,
+      y: 0,
+      duration: 0.5,
+      ease: "elastic.out(1, 0.5)",
+    });
+  });
+</script>
