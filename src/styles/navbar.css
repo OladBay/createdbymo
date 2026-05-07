@@ -20,7 +20,7 @@
 nav {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1.5rem 2rem;
+  padding: 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -54,17 +54,33 @@ nav {
   font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: 0.02em;
-  transition: color 0.2s ease;
+  display: inline-block;
+  padding: 0.4rem 0.85rem;
+  border-radius: 100px;
+  background: transparent;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .nav-links a:hover {
-  color: var(--text-primary);
+  color: var(--accent);
+  transform: translateY(-2px);
+  background: rgba(249, 115, 22, 0.08);
+  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.08);
 }
 
+.nav-links a.active {
+  color: var(--accent);
+  background: rgba(249, 115, 22, 0.08);
+  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.08);
+}
 .nav-cta {
-  background: var(--accent);
+  background: var(--accent) !important;
   color: var(--bg-primary) !important;
-  padding: 0.55rem 1.25rem;
+  padding: 0.55rem 1.25rem !important;
   border-radius: 100px;
   font-weight: 600 !important;
   transition:
@@ -73,9 +89,10 @@ nav {
 }
 
 .nav-cta:hover {
-  background: var(--accent-hover);
-  transform: translateY(-1px);
+  background: var(--accent-hover) !important;
+  transform: translateY(-1px) !important;
   color: var(--bg-primary) !important;
+  box-shadow: 0 8px 30px rgba(249, 115, 22, 0.35) !important;
 }
 
 .nav-socials {

@@ -1,8 +1,6 @@
 ---
 import "../styles/hero.css";
 
-const VIMEO_ID = "824804225";
-
 const tickerItems = [
   "Video Editing",
   "Reels & Shorts",
@@ -13,10 +11,109 @@ const tickerItems = [
   "Sound Design",
   "Content Creation",
 ];
+
+const floatingIcons = [
+  { icon: "fa-scissors", size: 1.8, top: 12, left: 8, opacity: 0.45, delay: 0 },
+  { icon: "fa-film", size: 2.4, top: 20, left: 82, opacity: 0.5, delay: 0.4 },
+  { icon: "fa-music", size: 1.6, top: 55, left: 5, opacity: 0.4, delay: 0.8 },
+  {
+    icon: "fa-palette",
+    size: 2.2,
+    top: 70,
+    left: 88,
+    opacity: 0.48,
+    delay: 0.2,
+  },
+  {
+    icon: "fa-sliders",
+    size: 1.9,
+    top: 35,
+    left: 92,
+    opacity: 0.42,
+    delay: 1.0,
+  },
+  {
+    icon: "fa-wand-magic-sparkles",
+    size: 2.6,
+    top: 78,
+    left: 15,
+    opacity: 0.5,
+    delay: 0.6,
+  },
+  {
+    icon: "fa-crop-simple",
+    size: 1.7,
+    top: 15,
+    left: 55,
+    opacity: 0.38,
+    delay: 1.2,
+  },
+  { icon: "fa-play", size: 1.5, top: 60, left: 75, opacity: 0.44, delay: 0.3 },
+  {
+    icon: "fa-microphone",
+    size: 2.0,
+    top: 42,
+    left: 3,
+    opacity: 0.42,
+    delay: 0.9,
+  },
+  {
+    icon: "fa-photo-film",
+    size: 2.3,
+    top: 85,
+    left: 60,
+    opacity: 0.48,
+    delay: 0.5,
+  },
+  {
+    icon: "fa-layer-group",
+    size: 1.8,
+    top: 28,
+    left: 18,
+    opacity: 0.4,
+    delay: 1.4,
+  },
+  { icon: "fa-bolt", size: 1.6, top: 48, left: 95, opacity: 0.45, delay: 0.7 },
+  {
+    icon: "fa-eye-dropper",
+    size: 2.0,
+    top: 90,
+    left: 35,
+    opacity: 0.42,
+    delay: 1.1,
+  },
+  { icon: "fa-video", size: 2.2, top: 8, left: 35, opacity: 0.4, delay: 1.3 },
+  {
+    icon: "fa-wave-square",
+    size: 1.7,
+    top: 65,
+    left: 45,
+    opacity: 0.38,
+    delay: 0.1,
+  },
+];
 ---
 
 <section class="hero" id="home">
-  <div class="hero-glow"></div>
+  <!-- Floating background icons -->
+  <div class="hero-icons" id="heroIcons">
+    {
+      floatingIcons.map((item, i) => (
+        <i
+          class={`hero-bg-icon fa-solid ${item.icon}`}
+          style={`
+          font-size: ${item.size}rem;
+          top: ${item.top}%;
+          left: ${item.left}%;
+          opacity: 0;
+          --final-opacity: ${item.opacity};
+          --float-delay: ${item.delay}s;
+        `}
+          data-index={i}
+        />
+      ))
+    }
+  </div>
 
   <!-- Top content -->
   <div class="hero-content">
@@ -29,7 +126,7 @@ const tickerItems = [
     <!-- Headline -->
     <h1 class="hero-headline">
       <span class="headline-line headline-line-1">
-        <span>This Is What Great Editing</span>
+        <span>This Is What <em class="headline-accent">Great Editing</em></span>
       </span>
       <span class="headline-line headline-line-2">
         <span>Looks Like.</span>
@@ -48,30 +145,42 @@ const tickerItems = [
         <i class="fa-solid fa-calendar"></i>
         Book a Free Call
       </a>
-
-      <div class="social-proof">
-        <div class="avatar-stack">
-          <img src="https://i.pravatar.cc/100?img=1" alt="Client" />
-          <img src="https://i.pravatar.cc/100?img=2" alt="Client" />
-          <img src="https://i.pravatar.cc/100?img=3" alt="Client" />
-        </div>
-        <div class="social-proof-text">
-          <span class="social-proof-stars">★★★★★</span>
-          <span class="social-proof-label">
-            Trusted by <strong>50+ creators</strong>
-          </span>
-        </div>
-      </div>
+      <a href="#work" class="btn-secondary">
+        <i class="fa-solid fa-play"></i>
+        View My Work
+      </a>
     </div>
   </div>
 
   <!-- Video Card -->
-  <div class="hero-video-card">
-    <div class="video-card-inner">
-      <iframe
-        src={`https://player.vimeo.com/video/${VIMEO_ID}?autoplay=0&title=0&byline=0&portrait=0&dnt=1`}
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowfullscreen></iframe>
+  <div class="hero-video-card" id="heroVideoCard">
+    <div class="video-card-inner" id="videoCardInner">
+      <video
+        id="heroVideo"
+        src="/videos/hero-bg.mp4"
+        autoplay
+        muted
+        loop
+        playsinline></video>
+
+      <!-- Custom Controls -->
+      <div class="video-controls" id="videoControls">
+        <button class="vc-btn" id="vcPlayPause" aria-label="Play/Pause">
+          <i class="fa-solid fa-pause"></i>
+        </button>
+
+        <div class="vc-progress" id="vcProgress">
+          <div class="vc-progress-fill" id="vcProgressFill"></div>
+        </div>
+
+        <button class="vc-btn" id="vcMute" aria-label="Mute/Unmute">
+          <i class="fa-solid fa-volume-xmark"></i>
+        </button>
+
+        <button class="vc-btn" id="vcFullscreen" aria-label="Fullscreen">
+          <i class="fa-solid fa-expand"></i>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -93,53 +202,78 @@ const tickerItems = [
 <script>
   import { gsap } from "gsap";
 
+  // ─── Entrance timeline ────────────────────────────────────
   const tl = gsap.timeline({ delay: 0.2 });
 
-  // 1. Label
-  tl.to(".hero-label", {
-    opacity: 1,
-    duration: 0.5,
-    ease: "power2.out",
-  });
-
-  // 2. Headline lines
+  tl.to(".hero-label", { opacity: 1, duration: 0.5, ease: "power2.out" });
   tl.to(
     ".headline-line span",
-    {
-      y: 0,
-      opacity: 1,
-      duration: 0.8,
-      ease: "power3.out",
-      stagger: 0.15,
-    },
+    { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", stagger: 0.15 },
     "-=0.2"
   );
-
-  // 3. Subtext
   tl.to(
     ".hero-subtext",
     { opacity: 1, duration: 0.6, ease: "power2.out" },
     "-=0.3"
   );
-
-  // 4. CTA row
   tl.to(
     ".hero-cta-row",
     { opacity: 1, duration: 0.5, ease: "power2.out" },
     "-=0.3"
   );
-
-  // 5. Video card
   tl.to(
     ".hero-video-card",
     { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" },
     "-=0.2"
   );
-
-  // 6. Ticker
   tl.to(".hero-ticker", { opacity: 1, duration: 0.5 }, "-=0.4");
 
-  // Magnetic CTA
+  // ─── Floating icons ───────────────────────────────────────
+  const icons = document.querySelectorAll<HTMLElement>(".hero-bg-icon");
+
+  icons.forEach((icon) => {
+    const finalOpacity = parseFloat(
+      icon.style.getPropertyValue("--final-opacity")
+    );
+    const delay = parseFloat(icon.style.getPropertyValue("--float-delay"));
+
+    gsap.to(icon, {
+      opacity: finalOpacity,
+      duration: 1.2,
+      delay: 0.8 + delay,
+      ease: "power2.out",
+    });
+
+    gsap.to(icon, {
+      y: "+=18",
+      duration: 3 + Math.random() * 2,
+      delay: delay,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+    });
+  });
+
+  // ─── Mouse parallax ──────────────────────────────────────
+  window.addEventListener("mousemove", (e: MouseEvent) => {
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    const dx = (e.clientX - cx) / cx;
+    const dy = (e.clientY - cy) / cy;
+
+    icons.forEach((icon, i) => {
+      const depth = 0.008 + (i % 5) * 0.006;
+      gsap.to(icon, {
+        x: dx * window.innerWidth * depth * -1,
+        y: `+=${dy * window.innerHeight * depth * -1}`,
+        duration: 1.2,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
+    });
+  });
+
+  // ─── Magnetic CTA ────────────────────────────────────────
   const btnPrimary = document.querySelector(".btn-primary") as HTMLElement;
 
   btnPrimary?.addEventListener("mousemove", (e: MouseEvent) => {
@@ -161,5 +295,79 @@ const tickerItems = [
       duration: 0.5,
       ease: "elastic.out(1, 0.5)",
     });
+  });
+
+  // ─── Video controls ───────────────────────────────────────
+  const video = document.getElementById("heroVideo") as HTMLVideoElement;
+  const controls = document.getElementById("videoControls") as HTMLElement;
+  const cardInner = document.getElementById("videoCardInner") as HTMLElement;
+  const playPauseBtn = document.getElementById("vcPlayPause") as HTMLElement;
+  const muteBtn = document.getElementById("vcMute") as HTMLElement;
+  const fullscreenBtn = document.getElementById("vcFullscreen") as HTMLElement;
+  const progressBar = document.getElementById("vcProgress") as HTMLElement;
+  const progressFill = document.getElementById("vcProgressFill") as HTMLElement;
+
+  let hideTimeout: ReturnType<typeof setTimeout>;
+
+  // Show controls
+  function showControls() {
+    gsap.to(controls, { opacity: 1, duration: 0.3, ease: "power2.out" });
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      gsap.to(controls, { opacity: 0, duration: 0.5, ease: "power2.out" });
+    }, 3000);
+  }
+
+  cardInner.addEventListener("mousemove", showControls);
+  cardInner.addEventListener("touchstart", showControls);
+
+  // Play / Pause
+  playPauseBtn.addEventListener("click", () => {
+    if (video.paused) {
+      video.play();
+      playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+    } else {
+      video.pause();
+      playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+    }
+  });
+
+  // Mute / Unmute
+  muteBtn.addEventListener("click", () => {
+    video.muted = !video.muted;
+    muteBtn.innerHTML = video.muted
+      ? '<i class="fa-solid fa-volume-xmark"></i>'
+      : '<i class="fa-solid fa-volume-high"></i>';
+  });
+
+  // Progress bar
+  video.addEventListener("timeupdate", () => {
+    if (video.duration) {
+      const pct = (video.currentTime / video.duration) * 100;
+      progressFill.style.width = `${pct}%`;
+    }
+  });
+
+  progressBar.addEventListener("click", (e: MouseEvent) => {
+    const rect = progressBar.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    video.currentTime = pct * video.duration;
+  });
+
+  // Fullscreen
+  fullscreenBtn.addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+      cardInner.requestFullscreen();
+      fullscreenBtn.innerHTML = '<i class="fa-solid fa-compress"></i>';
+    } else {
+      document.exitFullscreen();
+      fullscreenBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+    }
+  });
+
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement) {
+      fullscreenBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+    }
   });
 </script>
