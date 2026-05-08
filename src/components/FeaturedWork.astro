@@ -168,7 +168,11 @@ const categories = [...new Set(videos.map((v) => v.category))];
   function applyFilter(selected: string) {
     cards.forEach((card) => {
       const match = card.dataset.category === selected;
-      card.style.display = match ? "flex" : "none";
+      if (match) {
+        card.classList.remove("work-card--hidden");
+      } else {
+        card.classList.add("work-card--hidden");
+      }
     });
     grid.scrollLeft = 0;
   }
@@ -198,7 +202,7 @@ const categories = [...new Set(videos.map((v) => v.category))];
 
   function getScrollAmount(): number {
     const card = grid.querySelector<HTMLElement>(
-      ".work-card:not([style*='display: none'])"
+      ".work-card:not(.work-card--hidden)"
     );
     if (!card) return 400;
     const style = window.getComputedStyle(grid);
@@ -265,6 +269,7 @@ const categories = [...new Set(videos.map((v) => v.category))];
 
   cards.forEach((card) => {
     card.addEventListener("click", () => {
+      if (card.classList.contains("work-card--hidden")) return;
       const id = card.dataset.id;
       if (id) openLightbox(id);
     });
@@ -291,7 +296,7 @@ const categories = [...new Set(videos.map((v) => v.category))];
   );
 
   gsap.fromTo(
-    ".work-card",
+    ".work-card:not(.work-card--hidden)",
     { opacity: 0, y: 30 },
     {
       opacity: 1,
