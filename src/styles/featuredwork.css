@@ -85,6 +85,7 @@
   border-radius: 100px;
   cursor: pointer;
   white-space: nowrap;
+  touch-action: pan-x;
   transition:
     background 0.2s ease,
     color 0.2s ease,
