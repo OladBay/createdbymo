@@ -108,7 +108,6 @@ import "../styles/process.css";
       </div>
     </div>
 
-    <!-- Progress bar -->
     <div class="process-bar" id="processBar"></div>
   </div>
 </section>
@@ -129,10 +128,11 @@ import "../styles/process.css";
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0, rootMargin: "0px 0px -50px 0px" }
   );
   steps.forEach((step) => observer.observe(step));
 </script>
