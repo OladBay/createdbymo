@@ -77,8 +77,8 @@
 
 /* ─── Card ───────────────────────────────────────────────── */
 .services-card {
-  background: var(--bg-card);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.35);
   border-radius: 16px;
   padding: 2rem 1.75rem;
   display: flex;

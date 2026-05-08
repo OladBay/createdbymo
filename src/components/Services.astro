@@ -1,0 +1,166 @@
+---
+import "../styles/services.css";
+---
+
+<section class="services" id="services">
+  <div class="services-inner">
+    <!-- Header -->
+    <div class="services-header">
+      <div class="services-header-left">
+        <h2 class="services-headline">Our Services</h2>
+        <p class="services-subtext">
+          Comprehensive video production solutions tailored to your goals
+        </p>
+      </div>
+      <a href="#contact" class="btn-primary services-cta">
+        Book a Free Call
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path
+            d="M3 13L13 3M13 3H6M13 3V10"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Cards -->
+    <div class="services-grid">
+      <!-- Video Editing -->
+      <div class="services-card">
+        <div class="services-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect
+              x="2"
+              y="6"
+              width="18"
+              height="16"
+              rx="3"
+              stroke="currentColor"
+              stroke-width="1.6"></rect>
+            <path
+              d="M20 11L26 8V20L20 17V11Z"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <h3 class="services-card-title">Video Editing</h3>
+        <p class="services-card-body">
+          Transform raw footage into polished, professional content that
+          captivates audiences and drives engagement across all platforms.
+        </p>
+      </div>
+
+      <!-- Shorts & Reels -->
+      <div class="services-card">
+        <div class="services-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect
+              x="8"
+              y="2"
+              width="12"
+              height="24"
+              rx="3"
+              stroke="currentColor"
+              stroke-width="1.6"></rect>
+            <line
+              x1="8"
+              y1="7"
+              x2="20"
+              y2="7"
+              stroke="currentColor"
+              stroke-width="1.6"></line>
+            <line
+              x1="8"
+              y1="21"
+              x2="20"
+              y2="21"
+              stroke="currentColor"
+              stroke-width="1.6"></line>
+            <circle cx="14" cy="24.5" r="1" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <h3 class="services-card-title">Shorts & Reels</h3>
+        <p class="services-card-body">
+          Create viral-worthy vertical content optimized for TikTok, Instagram
+          Reels, and YouTube Shorts that maximizes reach and conversion.
+        </p>
+      </div>
+
+      <!-- Motion Graphics -->
+      <div class="services-card">
+        <div class="services-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path
+              d="M14 3L15.5 9H21.5L16.8 12.8L18.5 19L14 15.5L9.5 19L11.2 12.8L6.5 9H12.5L14 3Z"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linejoin="round"></path>
+            <path
+              d="M22 20L24 22"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"></path>
+            <path
+              d="M4 20L6 22"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <h3 class="services-card-title">Motion Graphics</h3>
+        <p class="services-card-body">
+          Elevate your brand with stunning animations, dynamic text, and visual
+          effects that make your content stand out from the competition.
+        </p>
+      </div>
+
+      <!-- Commercial Ads -->
+      <div class="services-card">
+        <div class="services-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <polyline
+              points="3,20 9,13 14,16 20,8 25,11"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              fill="none"></polyline>
+            <line
+              x1="3"
+              y1="23"
+              x2="25"
+              y2="23"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"></line>
+          </svg>
+        </div>
+        <h3 class="services-card-title">Commercial Ads</h3>
+        <p class="services-card-body">
+          Produce high-converting advertisements that communicate your message
+          clearly and inspire action from your target audience.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const cards = document.querySelectorAll<HTMLElement>(".services-card");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  cards.forEach((card) => observer.observe(card));
+</script>
