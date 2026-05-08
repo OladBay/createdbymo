@@ -1,0 +1,138 @@
+---
+import "../styles/process.css";
+---
+
+<section class="process" id="process">
+  <div class="process-inner">
+    <div class="process-header">
+      <h2 class="process-headline">Our Process</h2>
+      <p class="process-subtext">
+        From concept to completion in four seamless steps
+      </p>
+    </div>
+
+    <div class="process-steps">
+      <!-- Step 1 -->
+      <div class="process-step process-step--high">
+        <div class="process-icon process-icon--accent">
+          <svg
+            viewBox="0 0 36 36"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="18" cy="15" r="7"></circle>
+            <path d="M18 22v4M15 26h6"></path>
+            <path d="M22 10l2-2M26 14l2-1M24 19l2 1"></path>
+          </svg>
+        </div>
+        <h3 class="process-step-title process-step-title--accent">
+          Discover & Strategy
+        </h3>
+        <p class="process-step-body">
+          Understanding your goals, audience, and vision to set a clear
+          direction for the edit.
+        </p>
+        <div class="process-line process-line--accent"></div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="process-step process-step--low">
+        <div class="process-icon">
+          <svg
+            viewBox="0 0 36 36"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M10 26l4-4 3 3 5-7 4 4"></path>
+            <rect x="6" y="6" width="24" height="24" rx="4"></rect>
+          </svg>
+        </div>
+        <h3 class="process-step-title">Creative Production</h3>
+        <p class="process-step-body">
+          Transforming raw footage into a polished, engaging video through clean
+          cuts and storytelling.
+        </p>
+        <div class="process-line"></div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="process-step process-step--high">
+        <div class="process-icon">
+          <svg
+            viewBox="0 0 36 36"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="18" cy="18" r="12"></circle>
+            <path d="M13 18h6M13 14h10M13 22h7"></path>
+          </svg>
+        </div>
+        <h3 class="process-step-title">Review & Revisions</h3>
+        <p class="process-step-body">
+          Sharing previews, gathering feedback, and refining the edit for the
+          best result.
+        </p>
+        <div class="process-line"></div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="process-step process-step--low">
+        <div class="process-icon">
+          <svg
+            viewBox="0 0 36 36"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="8" y="6" width="14" height="18" rx="2"></rect>
+            <path d="M12 28h16M20 10h4M20 14h4M20 18h4"></path>
+            <path d="M22 24v4"></path>
+          </svg>
+        </div>
+        <h3 class="process-step-title">Final Delivery</h3>
+        <p class="process-step-body">
+          Delivering the final video in ready-to-publish formats, on time.
+        </p>
+        <div class="process-line"></div>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="process-bar" id="processBar"></div>
+  </div>
+</section>
+
+<script>
+  const bar = document.getElementById("processBar") as HTMLElement;
+  for (let i = 0; i < 80; i++) {
+    const seg = document.createElement("div");
+    seg.className =
+      "process-bar-seg " +
+      (i < 28 ? "process-bar-seg--on" : "process-bar-seg--off");
+    bar.appendChild(seg);
+  }
+
+  const steps = document.querySelectorAll<HTMLElement>(".process-step");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  steps.forEach((step) => observer.observe(step));
+</script>
