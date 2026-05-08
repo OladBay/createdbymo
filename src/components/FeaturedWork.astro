@@ -94,34 +94,7 @@ const categories = [...new Set(videos.map((v) => v.category))];
 
     <!-- Scroll Row -->
     <div class="work-scroll-wrap">
-      <div class="work-scroll" id="workGrid">
-        {
-          videos.map((video) => (
-            <div
-              class="work-card"
-              data-category={video.category}
-              data-id={video.id}
-              data-title={video.title}
-            >
-              <div class="work-card-thumb">
-                <img
-                  src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
-                  alt={video.title}
-                  class="work-card-img"
-                  loading="lazy"
-                />
-                <div class="work-card-overlay">
-                  <div class="work-card-play">
-                    <i class="fa-solid fa-play" />
-                  </div>
-                </div>
-                <span class="work-card-category">{video.category}</span>
-              </div>
-              <p class="work-card-title">{video.title}</p>
-            </div>
-          ))
-        }
-      </div>
+      <div class="work-scroll" id="workGrid"></div>
     </div>
 
     <!-- Arrows -->
@@ -157,27 +130,107 @@ const categories = [...new Set(videos.map((v) => v.category))];
 <script>
   import { gsap } from "gsap";
 
-  const tabs = document.querySelectorAll<HTMLElement>(".work-tab");
-  const cards = document.querySelectorAll<HTMLElement>(".work-card");
-  const grid = document.getElementById("workGrid") as HTMLElement;
+  // ─── Video data ───────────────────────────────────────────
+  const allVideos: { id: string; title: string; category: string }[] = [
+    { id: "dQw4w9WgXcQ", title: "Short Form Edit 01", category: "Short Forms" },
+    { id: "9bZkp7q19f0", title: "Short Form Edit 02", category: "Short Forms" },
+    { id: "kJQP7kiw5Fk", title: "Short Form Edit 03", category: "Short Forms" },
+    { id: "JGwWNGJdvx8", title: "Short Form Edit 04", category: "Short Forms" },
+    { id: "OPf0YbXqDm0", title: "Long Form Edit 01", category: "Long Forms" },
+    { id: "YQHsXMglC9A", title: "Long Form Edit 02", category: "Long Forms" },
+    { id: "RgKAFK5djSk", title: "Long Form Edit 03", category: "Long Forms" },
+    { id: "fRh_vgS2dFE", title: "Long Form Edit 04", category: "Long Forms" },
+    {
+      id: "CevxZvSJLk8",
+      title: "Talking Head Edit 01",
+      category: "Talking Heads",
+    },
+    {
+      id: "2Vv-BfVoq4g",
+      title: "Talking Head Edit 02",
+      category: "Talking Heads",
+    },
+    {
+      id: "pRpeEdMmmQ0",
+      title: "Talking Head Edit 03",
+      category: "Talking Heads",
+    },
+    {
+      id: "09R8_2nJtjg",
+      title: "Talking Head Edit 04",
+      category: "Talking Heads",
+    },
+    { id: "dQw4w9WgXcQ", title: "Podcast Edit 01", category: "Podcast" },
+    { id: "9bZkp7q19f0", title: "Podcast Edit 02", category: "Podcast" },
+    {
+      id: "kJQP7kiw5Fk",
+      title: "Ads/Branding Edit 01",
+      category: "Ads/Branding",
+    },
+    {
+      id: "JGwWNGJdvx8",
+      title: "Ads/Branding Edit 02",
+      category: "Ads/Branding",
+    },
+    { id: "OPf0YbXqDm0", title: "Vlog Edit 01", category: "Vlogs" },
+    { id: "YQHsXMglC9A", title: "Vlog Edit 02", category: "Vlogs" },
+  ];
 
-  // ─── Apply filter ─────────────────────────────────────────
-  function applyFilter(selected: string) {
-    cards.forEach((card) => {
-      const match = card.dataset.category === selected;
-      if (match) {
-        card.classList.remove("work-card--hidden");
-      } else {
-        card.classList.add("work-card--hidden");
-      }
-    });
+  const grid = document.getElementById("workGrid") as HTMLElement;
+  const tabs = document.querySelectorAll<HTMLElement>(".work-tab");
+
+  // ─── Render cards for a category ─────────────────────────
+  function renderCategory(category: string) {
+    const filtered = allVideos.filter((v) => v.category === category);
+
+    grid.innerHTML = filtered
+      .map(
+        (video) => `
+        <div class="work-card" data-id="${video.id}" data-title="${video.title}">
+          <div class="work-card-thumb">
+            <img
+              src="https://img.youtube.com/vi/${video.id}/maxresdefault.jpg"
+              alt="${video.title}"
+              class="work-card-img"
+              loading="lazy"
+            />
+            <div class="work-card-overlay">
+              <div class="work-card-play">
+                <i class="fa-solid fa-play"></i>
+              </div>
+            </div>
+            <span class="work-card-category">${video.category}</span>
+          </div>
+          <p class="work-card-title">${video.title}</p>
+        </div>
+      `
+      )
+      .join("");
+
     grid.scrollLeft = 0;
+    bindCardClicks();
+    animateCards();
   }
 
-  // ─── Default: show first category on load ─────────────────
-  const firstTab = tabs[0];
-  if (firstTab?.dataset.category) {
-    applyFilter(firstTab.dataset.category);
+  // ─── Animate cards in ─────────────────────────────────────
+  function animateCards() {
+    const cards = grid.querySelectorAll<HTMLElement>(".work-card");
+    gsap.fromTo(
+      cards,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power3.out" }
+    );
+  }
+
+  // ─── Bind click to open lightbox ──────────────────────────
+  function bindCardClicks() {
+    const cards = grid.querySelectorAll<HTMLElement>(".work-card");
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const id = card.dataset.id;
+        if (id) openLightbox(id);
+      });
+    });
   }
 
   // ─── Tab clicks ───────────────────────────────────────────
@@ -185,7 +238,7 @@ const categories = [...new Set(videos.map((v) => v.category))];
     tab.addEventListener("click", () => {
       tabs.forEach((t) => t.classList.remove("active"));
       tab.classList.add("active");
-      if (tab.dataset.category) applyFilter(tab.dataset.category);
+      if (tab.dataset.category) renderCategory(tab.dataset.category);
     });
 
     tab.addEventListener("keydown", (e: KeyboardEvent) => {
@@ -198,9 +251,7 @@ const categories = [...new Set(videos.map((v) => v.category))];
   const nextBtn = document.getElementById("workNext") as HTMLElement;
 
   function getScrollAmount(): number {
-    const card = grid.querySelector<HTMLElement>(
-      ".work-card:not(.work-card--hidden)"
-    );
+    const card = grid.querySelector<HTMLElement>(".work-card");
     if (!card) return 400;
     const style = window.getComputedStyle(grid);
     const gap = parseFloat(style.gap) || 20;
@@ -264,56 +315,12 @@ const categories = [...new Set(videos.map((v) => v.category))];
     });
   }
 
-  cards.forEach((card) => {
-    card.addEventListener("click", () => {
-      if (card.classList.contains("work-card--hidden")) return;
-      const id = card.dataset.id;
-      if (id) openLightbox(id);
-    });
-  });
-
   backdrop.addEventListener("click", closeLightbox);
   closeBtn.addEventListener("click", closeLightbox);
 
   document.addEventListener("keydown", (e: KeyboardEvent) => {
     if (e.key === "Escape") closeLightbox();
   });
-
-  // ─── Card entrance animation via IntersectionObserver ─────
-  const workSection = document.querySelector(
-    ".work-scroll-wrap"
-  ) as HTMLElement;
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const visibleCards = Array.from(
-            grid.querySelectorAll<HTMLElement>(
-              ".work-card:not(.work-card--hidden)"
-            )
-          );
-          visibleCards.forEach((card, i) => {
-            gsap.fromTo(
-              card,
-              { opacity: 0, y: 30 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 0.6,
-                delay: i * 0.08,
-                ease: "power3.out",
-              }
-            );
-          });
-          observer.disconnect();
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-
-  observer.observe(workSection);
 
   // ─── Header entrance animation ────────────────────────────
   const headerObserver = new IntersectionObserver(
@@ -333,4 +340,10 @@ const categories = [...new Set(videos.map((v) => v.category))];
   );
 
   headerObserver.observe(document.querySelector(".work") as HTMLElement);
+
+  // ─── Initial render ───────────────────────────────────────
+  const firstTab = tabs[0];
+  if (firstTab?.dataset.category) {
+    renderCategory(firstTab.dataset.category);
+  }
 </script>
