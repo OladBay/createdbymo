@@ -1,0 +1,102 @@
+---
+import "../styles/stats.css";
+
+const stats = [
+  {
+    icon: "fa-film",
+    value: 200,
+    suffix: "+",
+    label: "Projects Delivered",
+  },
+  {
+    icon: "fa-heart",
+    value: 50,
+    suffix: "+",
+    label: "Happy Clients",
+  },
+  {
+    icon: "fa-star",
+    value: 5,
+    suffix: "",
+    label: "Years Experience",
+  },
+];
+---
+
+<section class="stats" id="stats">
+  <div class="stats-inner">
+    {
+      stats.map((stat, i) => (
+        <div
+          class="stat-item"
+          data-value={stat.value}
+          data-suffix={stat.suffix}
+        >
+          <div class="stat-icon">
+            <i class={`fa-solid ${stat.icon}`} />
+          </div>
+          <div class="stat-number">
+            <span class="stat-count">0</span>
+            <span class="stat-suffix">{stat.suffix}</span>
+          </div>
+          <p class="stat-label">{stat.label}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const statItems = document.querySelectorAll<HTMLElement>(".stat-item");
+
+  statItems.forEach((item, i) => {
+    const target = parseInt(item.dataset.value || "0");
+    const countEl = item.querySelector(".stat-count") as HTMLElement;
+
+    gsap.fromTo(
+      item,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: i * 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: item,
+          start: "top 85%",
+        },
+      }
+    );
+
+    ScrollTrigger.create({
+      trigger: item,
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        gsap.to(
+          { val: 0 },
+          {
+            val: target,
+            duration: 2,
+            delay: i * 0.15,
+            ease: "power2.out",
+            onUpdate: function () {
+              countEl.textContent = Math.floor(
+                this.targets()[0].val
+              ).toString();
+            },
+            onComplete: () => {
+              countEl.textContent = target.toString();
+            },
+          }
+        );
+      },
+    });
+  });
+</script>

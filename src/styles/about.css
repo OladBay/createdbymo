@@ -1,0 +1,223 @@
+/* ─── About ──────────────────────────────────────────────── */
+.about {
+  position: relative;
+  width: 100%;
+  padding: 8rem 2rem 6rem;
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.about-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6rem;
+}
+
+/* ─── Image column ───────────────────────────────────────── */
+.about-image-col {
+  flex: 0 0 42%;
+  position: relative;
+}
+
+.about-image-wrap {
+  position: relative;
+  border-radius: 24px;
+  overflow: visible;
+}
+
+.about-image-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 26px;
+  background: linear-gradient(
+    135deg,
+    rgba(249, 115, 22, 0.4) 0%,
+    transparent 60%
+  );
+  z-index: 0;
+}
+
+.about-image-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  box-shadow:
+    -20px 20px 80px rgba(249, 115, 22, 0.2),
+    0 40px 80px rgba(0, 0, 0, 0.5);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.about-image {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 24px;
+  display: block;
+  border: 1px solid rgba(249, 115, 22, 0.15);
+}
+
+/* ─── Text column ────────────────────────────────────────── */
+.about-text-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+/* ─── Label ──────────────────────────────────────────────── */
+.about-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ─── Headline ───────────────────────────────────────────── */
+.about-headline {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  color: var(--text-primary);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.about-headline-accent {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.about-headline-muted {
+  color: var(--text-faint);
+  font-style: normal;
+}
+
+/* ─── Body ───────────────────────────────────────────────── */
+.about-body {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 520px;
+  margin: 0;
+}
+
+/* ─── CTA line ───────────────────────────────────────────── */
+.about-cta-line {
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  line-height: 1.75;
+  max-width: 520px;
+  margin: 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.about-cta-accent {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.about-cta-line strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* ─── Inline stats ───────────────────────────────────────── */
+.about-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  width: 100%;
+}
+
+.about-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.about-stat-number {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  color: var(--text-primary);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.about-stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.about-stat-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--border);
+}
+
+/* ─── CTA button ─────────────────────────────────────────── */
+.about-cta {
+  margin-top: 0.5rem;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .about {
+    padding: 5rem 1.25rem 6rem;
+  }
+
+  .about-inner {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .about-image-col {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .about-image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .about-stats {
+    gap: 1.25rem;
+    justify-content: center;
+  }
+
+  .about-text-col {
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-body,
+  .about-cta-line {
+    text-align: left;
+  }
+
+  .about-label {
+    justify-content: center;
+  }
+}

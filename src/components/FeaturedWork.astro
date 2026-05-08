@@ -1,0 +1,305 @@
+---
+import "../styles/featuredwork.css";
+
+const videos = [
+  // ─── Short Forms ─────────────────────────────────────────
+  { id: "dQw4w9WgXcQ", title: "Short Form Edit 01", category: "Short Forms" },
+  { id: "9bZkp7q19f0", title: "Short Form Edit 02", category: "Short Forms" },
+  { id: "kJQP7kiw5Fk", title: "Short Form Edit 03", category: "Short Forms" },
+  { id: "JGwWNGJdvx8", title: "Short Form Edit 04", category: "Short Forms" },
+
+  // ─── Long Forms ──────────────────────────────────────────
+  { id: "OPf0YbXqDm0", title: "Long Form Edit 01", category: "Long Forms" },
+  { id: "YQHsXMglC9A", title: "Long Form Edit 02", category: "Long Forms" },
+  { id: "RgKAFK5djSk", title: "Long Form Edit 03", category: "Long Forms" },
+  { id: "fRh_vgS2dFE", title: "Long Form Edit 04", category: "Long Forms" },
+
+  // ─── Talking Heads ───────────────────────────────────────
+  {
+    id: "CevxZvSJLk8",
+    title: "Talking Head Edit 01",
+    category: "Talking Heads",
+  },
+  {
+    id: "2Vv-BfVoq4g",
+    title: "Talking Head Edit 02",
+    category: "Talking Heads",
+  },
+  {
+    id: "pRpeEdMmmQ0",
+    title: "Talking Head Edit 03",
+    category: "Talking Heads",
+  },
+  {
+    id: "09R8_2nJtjg",
+    title: "Talking Head Edit 04",
+    category: "Talking Heads",
+  },
+
+  // ─── Podcast ─────────────────────────────────────────────
+  { id: "dQw4w9WgXcQ", title: "Podcast Edit 01", category: "Podcast" },
+  { id: "9bZkp7q19f0", title: "Podcast Edit 02", category: "Podcast" },
+
+  // ─── Ads/Branding ────────────────────────────────────────
+  {
+    id: "kJQP7kiw5Fk",
+    title: "Ads/Branding Edit 01",
+    category: "Ads/Branding",
+  },
+  {
+    id: "JGwWNGJdvx8",
+    title: "Ads/Branding Edit 02",
+    category: "Ads/Branding",
+  },
+
+  // ─── Vlogs ───────────────────────────────────────────────
+  { id: "OPf0YbXqDm0", title: "Vlog Edit 01", category: "Vlogs" },
+  { id: "YQHsXMglC9A", title: "Vlog Edit 02", category: "Vlogs" },
+];
+
+const categories = [...new Set(videos.map((v) => v.category))];
+---
+
+<section class="work" id="work">
+  <div class="work-inner">
+    <!-- Header -->
+    <div class="work-header">
+      <span class="work-label">
+        <i class="fa-solid fa-circle-dot"></i>
+        Featured Work
+      </span>
+      <h2 class="work-headline">
+        Stories Worth <em class="work-headline-accent">Watching.</em>
+      </h2>
+      <p class="work-subtext">
+        A glimpse into recent editing work and collaborations.
+      </p>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="work-tabs">
+      {
+        categories.map((cat, i) => (
+          <span
+            class={`work-tab ${i === 0 ? "active" : ""}`}
+            data-category={cat}
+            role="button"
+            tabindex="0"
+          >
+            {cat}
+          </span>
+        ))
+      }
+    </div>
+
+    <!-- Scroll Row -->
+    <div class="work-scroll-wrap">
+      <div class="work-scroll" id="workGrid">
+        {
+          videos.map((video) => (
+            <div
+              class="work-card"
+              data-category={video.category}
+              data-id={video.id}
+              data-title={video.title}
+            >
+              <div class="work-card-thumb">
+                <img
+                  src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
+                  alt={video.title}
+                  class="work-card-img"
+                  loading="lazy"
+                />
+                <div class="work-card-overlay">
+                  <div class="work-card-play">
+                    <i class="fa-solid fa-play" />
+                  </div>
+                </div>
+                <span class="work-card-category">{video.category}</span>
+              </div>
+              <p class="work-card-title">{video.title}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Arrows -->
+    <div class="work-arrows">
+      <button class="work-arrow" id="workPrev" aria-label="Previous">
+        <i class="fa-solid fa-arrow-left-long"></i>
+      </button>
+      <button class="work-arrow" id="workNext" aria-label="Next">
+        <i class="fa-solid fa-arrow-right-long"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="work-lightbox" id="workLightbox">
+  <div class="work-lightbox-backdrop" id="lightboxBackdrop"></div>
+  <div class="work-lightbox-inner">
+    <button class="work-lightbox-close" id="lightboxClose">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="work-lightbox-video">
+      <iframe
+        id="lightboxIframe"
+        src=""
+        frameborder="0"
+        allow="autoplay; fullscreen"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const tabs = document.querySelectorAll<HTMLElement>(".work-tab");
+  const cards = document.querySelectorAll<HTMLElement>(".work-card");
+  const grid = document.getElementById("workGrid") as HTMLElement;
+
+  // ─── Apply filter ─────────────────────────────────────────
+  function applyFilter(selected: string) {
+    cards.forEach((card) => {
+      const match = card.dataset.category === selected;
+      card.style.display = match ? "flex" : "none";
+    });
+    grid.scrollLeft = 0;
+  }
+
+  // ─── Default: show first category on load ─────────────────
+  const firstTab = tabs[0];
+  if (firstTab?.dataset.category) {
+    applyFilter(firstTab.dataset.category);
+  }
+
+  // ─── Tab clicks ───────────────────────────────────────────
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      tabs.forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      if (tab.dataset.category) applyFilter(tab.dataset.category);
+    });
+
+    tab.addEventListener("keydown", (e: KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === " ") tab.click();
+    });
+  });
+
+  // ─── Arrows ───────────────────────────────────────────────
+  const prevBtn = document.getElementById("workPrev") as HTMLElement;
+  const nextBtn = document.getElementById("workNext") as HTMLElement;
+
+  function getScrollAmount(): number {
+    const card = grid.querySelector<HTMLElement>(
+      ".work-card:not([style*='display: none'])"
+    );
+    if (!card) return 400;
+    const style = window.getComputedStyle(grid);
+    const gap = parseFloat(style.gap) || 20;
+    return card.offsetWidth + gap;
+  }
+
+  prevBtn?.addEventListener("click", () => {
+    gsap.to(grid, {
+      scrollLeft: grid.scrollLeft - getScrollAmount(),
+      duration: 0.6,
+      ease: "power3.inOut",
+    });
+    gsap.fromTo(
+      prevBtn,
+      { scale: 0.88 },
+      { scale: 1, duration: 0.35, ease: "back.out(2)" }
+    );
+  });
+
+  nextBtn?.addEventListener("click", () => {
+    gsap.to(grid, {
+      scrollLeft: grid.scrollLeft + getScrollAmount(),
+      duration: 0.6,
+      ease: "power3.inOut",
+    });
+    gsap.fromTo(
+      nextBtn,
+      { scale: 0.88 },
+      { scale: 1, duration: 0.35, ease: "back.out(2)" }
+    );
+  });
+
+  // ─── Lightbox ─────────────────────────────────────────────
+  const lightbox = document.getElementById("workLightbox") as HTMLElement;
+  const backdrop = document.getElementById("lightboxBackdrop") as HTMLElement;
+  const closeBtn = document.getElementById("lightboxClose") as HTMLElement;
+  const iframe = document.getElementById("lightboxIframe") as HTMLIFrameElement;
+
+  function openLightbox(id: string) {
+    iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+    lightbox.classList.add("open");
+    document.body.style.overflow = "hidden";
+    gsap.fromTo(
+      ".work-lightbox-inner",
+      { opacity: 0, scale: 0.95 },
+      { opacity: 1, scale: 1, duration: 0.35, ease: "power3.out" }
+    );
+  }
+
+  function closeLightbox() {
+    gsap.to(".work-lightbox-inner", {
+      opacity: 0,
+      scale: 0.95,
+      duration: 0.25,
+      ease: "power2.in",
+      onComplete: () => {
+        lightbox.classList.remove("open");
+        iframe.src = "";
+        document.body.style.overflow = "";
+      },
+    });
+  }
+
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const id = card.dataset.id;
+      if (id) openLightbox(id);
+    });
+  });
+
+  backdrop.addEventListener("click", closeLightbox);
+  closeBtn.addEventListener("click", closeLightbox);
+
+  document.addEventListener("keydown", (e: KeyboardEvent) => {
+    if (e.key === "Escape") closeLightbox();
+  });
+
+  // ─── Entrance animations ──────────────────────────────────
+  gsap.fromTo(
+    ".work-header",
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      scrollTrigger: { trigger: ".work", start: "top 80%" },
+    }
+  );
+
+  gsap.fromTo(
+    ".work-card",
+    { opacity: 0, y: 30 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      stagger: 0.08,
+      ease: "power3.out",
+      scrollTrigger: { trigger: ".work-scroll-wrap", start: "top 85%" },
+    }
+  );
+</script>
