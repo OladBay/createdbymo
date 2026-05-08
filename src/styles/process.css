@@ -196,7 +196,7 @@
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {
   .process {
-    padding: 4rem 1.25rem 0;
+    padding: 6rem 2rem 4rem;
   }
 
   .process-steps {

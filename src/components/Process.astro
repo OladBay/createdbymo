@@ -108,20 +108,19 @@ import "../styles/process.css";
       </div>
     </div>
 
-    <div class="process-bar" id="processBar"></div>
+    <div class="process-bar">
+      {
+        Array.from({ length: 80 }, (_, i) => (
+          <div
+            class={`process-bar-seg ${i < 28 ? "process-bar-seg--on" : "process-bar-seg--off"}`}
+          />
+        ))
+      }
+    </div>
   </div>
 </section>
 
 <script>
-  const bar = document.getElementById("processBar") as HTMLElement;
-  for (let i = 0; i < 80; i++) {
-    const seg = document.createElement("div");
-    seg.className =
-      "process-bar-seg " +
-      (i < 28 ? "process-bar-seg--on" : "process-bar-seg--off");
-    bar.appendChild(seg);
-  }
-
   const steps = document.querySelectorAll<HTMLElement>(".process-step");
   const observer = new IntersectionObserver(
     (entries) => {
