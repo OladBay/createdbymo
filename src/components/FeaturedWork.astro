@@ -156,9 +156,6 @@ const categories = [...new Set(videos.map((v) => v.category))];
 
 <script>
   import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-  gsap.registerPlugin(ScrollTrigger);
 
   const tabs = document.querySelectorAll<HTMLElement>(".work-tab");
   const cards = document.querySelectorAll<HTMLElement>(".work-card");
@@ -282,29 +279,58 @@ const categories = [...new Set(videos.map((v) => v.category))];
     if (e.key === "Escape") closeLightbox();
   });
 
-  // ─── Entrance animations ──────────────────────────────────
-  gsap.fromTo(
-    ".work-header",
-    { opacity: 0, y: 40 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power3.out",
-      scrollTrigger: { trigger: ".work", start: "top 80%" },
-    }
+  // ─── Card entrance animation via IntersectionObserver ─────
+  const workSection = document.querySelector(
+    ".work-scroll-wrap"
+  ) as HTMLElement;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const visibleCards = Array.from(
+            grid.querySelectorAll<HTMLElement>(
+              ".work-card:not(.work-card--hidden)"
+            )
+          );
+          visibleCards.forEach((card, i) => {
+            gsap.fromTo(
+              card,
+              { opacity: 0, y: 30 },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                delay: i * 0.08,
+                ease: "power3.out",
+              }
+            );
+          });
+          observer.disconnect();
+        }
+      });
+    },
+    { threshold: 0.15 }
   );
 
-  gsap.fromTo(
-    ".work-card:not(.work-card--hidden)",
-    { opacity: 0, y: 30 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      stagger: 0.08,
-      ease: "power3.out",
-      scrollTrigger: { trigger: ".work-scroll-wrap", start: "top 85%" },
-    }
+  observer.observe(workSection);
+
+  // ─── Header entrance animation ────────────────────────────
+  const headerObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          gsap.fromTo(
+            ".work-header",
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
+          );
+          headerObserver.disconnect();
+        }
+      });
+    },
+    { threshold: 0.15 }
   );
+
+  headerObserver.observe(document.querySelector(".work") as HTMLElement);
 </script>
