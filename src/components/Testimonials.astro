@@ -1,0 +1,340 @@
+---
+import "../styles/testimonials.css";
+
+const testimonials = [
+  {
+    id: 1,
+    name: "Sarah Johnson",
+    role: "Creative Director",
+    company: "Nike",
+    quote:
+      "Working with Mo transformed our brand campaign. The attention to detail and creative vision exceeded every expectation. Every frame was perfection.",
+    photo:
+      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80",
+    videoId: "dQw4w9WgXcQ",
+    hasVideo: true,
+  },
+  {
+    id: 2,
+    name: "James Carter",
+    role: "Head of Content",
+    company: "Spotify",
+    quote:
+      "Mo has an incredible eye for storytelling. What could have been a boring product video became something our audience actually shared. Unreal talent.",
+    photo:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80",
+    videoId: "9bZkp7q19f0",
+    hasVideo: true,
+  },
+  {
+    id: 3,
+    name: "Aisha Patel",
+    role: "Founder",
+    company: "Luminary Studios",
+    quote:
+      "From the first call to final delivery, the process was seamless. The edit captured exactly the feeling we were going for. We will not work with anyone else.",
+    photo:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80",
+    videoId: "kJQP7kiw5Fk",
+    hasVideo: false,
+  },
+];
+---
+
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-inner">
+    <!-- Header -->
+    <div class="testimonials-header">
+      <h2 class="testimonials-headline">Client Testimonials</h2>
+      <p class="testimonials-subtext">
+        What our clients say about working with us
+      </p>
+    </div>
+
+    <!-- Carousel -->
+    <div class="testimonials-carousel">
+      <!-- Active card -->
+      <div class="testimonials-active" id="testimonialsActive">
+        <!-- Photo -->
+        <div class="testimonials-photo-wrap" id="testimonialsPhotoWrap">
+          <img
+            src={testimonials[0].photo}
+            alt={testimonials[0].name}
+            class="testimonials-photo"
+            id="testimonialsPhoto"
+          />
+          {
+            testimonials[0].hasVideo && (
+              <button
+                class="testimonials-play"
+                id="testimonialsPlay"
+                aria-label="Watch video"
+              >
+                <i class="fa-solid fa-play" />
+              </button>
+            )
+          }
+          {
+            !testimonials[0].hasVideo && (
+              <button
+                class="testimonials-play"
+                id="testimonialsPlay"
+                aria-label="Watch video"
+                style="display:none;"
+              >
+                <i class="fa-solid fa-play" />
+              </button>
+            )
+          }
+        </div>
+
+        <!-- Content -->
+        <div class="testimonials-content">
+          <div class="testimonials-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testimonials-quote" id="testimonialsQuote">
+            {testimonials[0].quote}
+          </p>
+          <p class="testimonials-name" id="testimonialsName">
+            {testimonials[0].name}
+          </p>
+          <p class="testimonials-meta" id="testimonialsMeta">
+            {testimonials[0].role}, {testimonials[0].company}
+          </p>
+        </div>
+      </div>
+
+      <!-- Card stack -->
+      <div class="testimonials-stack" id="testimonialsStack">
+        <div class="testimonials-stack-card">
+          <img
+            src={testimonials[2].photo}
+            alt={testimonials[2].name}
+            id="stackCard1"
+          />
+        </div>
+        <div class="testimonials-stack-card">
+          <img
+            src={testimonials[1].photo}
+            alt={testimonials[1].name}
+            id="stackCard2"
+          />
+        </div>
+        <div class="testimonials-stack-card">
+          <img
+            src={testimonials[0].photo}
+            alt={testimonials[0].name}
+            id="stackCard3"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrows -->
+    <div class="testimonials-arrows">
+      <button
+        class="testimonials-arrow testimonials-arrow--prev"
+        id="testimonialsPrev"
+        aria-label="Previous"
+      >
+        <i class="fa-solid fa-arrow-left-long"></i>
+      </button>
+      <button
+        class="testimonials-arrow testimonials-arrow--next"
+        id="testimonialsNext"
+        aria-label="Next"
+      >
+        <i class="fa-solid fa-arrow-right-long"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="testimonials-lightbox" id="testimonialsLightbox">
+  <div class="testimonials-lightbox-backdrop" id="testimonialsBackdrop"></div>
+  <div class="testimonials-lightbox-inner">
+    <button class="testimonials-lightbox-close" id="testimonialsClose">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="testimonials-lightbox-video">
+      <iframe
+        id="testimonialsIframe"
+        src=""
+        frameborder="0"
+        allow="autoplay; fullscreen"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  const testimonials: {
+    name: string;
+    role: string;
+    company: string;
+    quote: string;
+    photo: string;
+    videoId: string;
+    hasVideo: boolean;
+  }[] = [
+    {
+      name: "Sarah Johnson",
+      role: "Creative Director",
+      company: "Nike",
+      quote:
+        "Working with Mo transformed our brand campaign. The attention to detail and creative vision exceeded every expectation. Every frame was perfection.",
+      photo:
+        "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80",
+      videoId: "dQw4w9WgXcQ",
+      hasVideo: true,
+    },
+    {
+      name: "James Carter",
+      role: "Head of Content",
+      company: "Spotify",
+      quote:
+        "Mo has an incredible eye for storytelling. What could have been a boring product video became something our audience actually shared. Unreal talent.",
+      photo:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80",
+      videoId: "9bZkp7q19f0",
+      hasVideo: true,
+    },
+    {
+      name: "Aisha Patel",
+      role: "Founder",
+      company: "Luminary Studios",
+      quote:
+        "From the first call to final delivery, the process was seamless. The edit captured exactly the feeling we were going for. We will not work with anyone else.",
+      photo:
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80",
+      videoId: "kJQP7kiw5Fk",
+      hasVideo: false,
+    },
+  ];
+
+  let current = 0;
+
+  const photo = document.getElementById(
+    "testimonialsPhoto"
+  ) as HTMLImageElement;
+  const quote = document.getElementById("testimonialsQuote") as HTMLElement;
+  const name = document.getElementById("testimonialsName") as HTMLElement;
+  const meta = document.getElementById("testimonialsMeta") as HTMLElement;
+  const active = document.getElementById("testimonialsActive") as HTMLElement;
+  const playBtn = document.getElementById("testimonialsPlay") as HTMLElement;
+  const stackCard1 = document.getElementById("stackCard1") as HTMLImageElement;
+  const stackCard2 = document.getElementById("stackCard2") as HTMLImageElement;
+  const stackCard3 = document.getElementById("stackCard3") as HTMLImageElement;
+
+  // ─── Update stack ─────────────────────────────────────────
+  function updateStack(currentIndex: number) {
+    const prev2 =
+      (currentIndex - 2 + testimonials.length) % testimonials.length;
+    const prev1 =
+      (currentIndex - 1 + testimonials.length) % testimonials.length;
+    const next1 = (currentIndex + 1) % testimonials.length;
+
+    const stack = document.getElementById("testimonialsStack") as HTMLElement;
+    const cards = stack.querySelectorAll<HTMLElement>(
+      ".testimonials-stack-card"
+    );
+
+    cards.forEach((card) => {
+      card.style.opacity = "0";
+      card.style.transform = card.style.transform + " scale(0.92)";
+    });
+
+    setTimeout(() => {
+      stackCard1.src = testimonials[prev2].photo;
+      stackCard1.alt = testimonials[prev2].name;
+      stackCard2.src = testimonials[prev1].photo;
+      stackCard2.alt = testimonials[prev1].name;
+      stackCard3.src = testimonials[next1].photo;
+      stackCard3.alt = testimonials[next1].name;
+
+      cards.forEach((card, i) => {
+        const baseTransforms = [
+          "rotate(-16deg)",
+          "rotate(-8deg)",
+          "rotate(0deg)",
+        ];
+        card.style.opacity = "1";
+        card.style.transform = baseTransforms[i];
+      });
+    }, 300);
+  }
+
+  // ─── Go to testimonial ────────────────────────────────────
+  function goTo(index: number) {
+    current = (index + testimonials.length) % testimonials.length;
+    const t = testimonials[current];
+
+    active.classList.add("testimonials-active--exit");
+
+    setTimeout(() => {
+      photo.src = t.photo;
+      photo.alt = t.name;
+      quote.textContent = t.quote;
+      name.textContent = t.name;
+      meta.textContent = `${t.role}, ${t.company}`;
+      playBtn.style.display = t.hasVideo ? "flex" : "none";
+      updateStack(current);
+      active.classList.remove("testimonials-active--exit");
+      active.classList.add("testimonials-active--enter");
+
+      setTimeout(() => {
+        active.classList.remove("testimonials-active--enter");
+      }, 600);
+    }, 400);
+  }
+
+  // ─── Arrows ───────────────────────────────────────────────
+  document
+    .getElementById("testimonialsPrev")
+    ?.addEventListener("click", () => goTo(current - 1));
+  document
+    .getElementById("testimonialsNext")
+    ?.addEventListener("click", () => goTo(current + 1));
+
+  // ─── Lightbox ─────────────────────────────────────────────
+  const lightbox = document.getElementById(
+    "testimonialsLightbox"
+  ) as HTMLElement;
+  const backdrop = document.getElementById(
+    "testimonialsBackdrop"
+  ) as HTMLElement;
+  const closeBtn = document.getElementById("testimonialsClose") as HTMLElement;
+  const iframe = document.getElementById(
+    "testimonialsIframe"
+  ) as HTMLIFrameElement;
+
+  function openLightbox() {
+    iframe.src = `https://www.youtube.com/embed/${testimonials[current].videoId}?autoplay=1&rel=0`;
+    lightbox.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove("open");
+    iframe.src = "";
+    document.body.style.overflow = "";
+  }
+
+  playBtn.addEventListener("click", openLightbox);
+  backdrop.addEventListener("click", closeLightbox);
+  closeBtn.addEventListener("click", closeLightbox);
+
+  document.addEventListener("keydown", (e: KeyboardEvent) => {
+    if (e.key === "Escape") closeLightbox();
+  });
+
+  // ─── Initial state ────────────────────────────────────────
+  playBtn.style.display = testimonials[current].hasVideo ? "flex" : "none";
+  updateStack(current);
+</script>
