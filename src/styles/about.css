@@ -2,7 +2,7 @@
 .about {
   position: relative;
   width: 100%;
-  padding: 8rem 2rem 6rem;
+  padding: var(--section-gap) 2rem 6rem;
   background: var(--bg-primary);
   overflow: hidden;
 }
@@ -186,7 +186,7 @@
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {
   .about {
-    padding: 5rem 1.25rem 6rem;
+    padding: var(--section-gap) 1.25rem 6rem;
   }
 
   .about-inner {

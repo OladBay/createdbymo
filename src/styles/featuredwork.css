@@ -2,7 +2,7 @@
 .work {
   position: relative;
   width: 100%;
-  padding: 6rem 2rem;
+  padding: var(--section-gap) 2rem;
   background: var(--bg-primary);
 }
 
@@ -317,7 +317,7 @@
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {
   .work {
-    padding: 4rem 1.25rem;
+    padding: var(--section-gap) 1.25rem;
   }
 
   .work-tabs {

@@ -2,24 +2,8 @@
 .testimonials {
   position: relative;
   width: 100%;
-  padding: 4rem 1.25rem;
-  background: var(--bg-primary);
-}
-
-.testimonials::before {
-  content: "";
-  position: absolute;
-  top: 20%;
-  left: 2%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(
-    circle,
-    rgba(249, 115, 22, 0.12) 0%,
-    transparent 70%
-  );
-  pointer-events: none;
-  z-index: 0;
+  padding: var(--section-gap) 1.25rem;
+  background: transparent;
 }
 
 .testimonials-inner {
@@ -334,7 +318,7 @@
 /* ─── Desktop ────────────────────────────────────────────── */
 @media (min-width: 769px) {
   .testimonials {
-    padding: 6rem 2rem;
+    padding: var(--section-gap) 2rem;
   }
 
   .testimonials-inner {

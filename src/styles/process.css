@@ -2,25 +2,9 @@
 .process {
   position: relative;
   width: 100%;
-  padding: 6rem 2rem 0;
-  background: var(--bg-primary);
+  padding: var(--section-gap) 2rem 0;
+  background: transparent;
   overflow: hidden;
-}
-
-.process::after {
-  content: "";
-  position: absolute;
-  bottom: -80px;
-  right: -80px;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(
-    circle,
-    rgba(249, 115, 22, 0.2) 0%,
-    transparent 70%
-  );
-  pointer-events: none;
-  z-index: 0;
 }
 
 .process-inner {
@@ -69,7 +53,6 @@
 }
 
 /* ─── Step ───────────────────────────────────────────────── */
-
 .process-step {
   display: flex;
   flex-direction: column;
@@ -96,6 +79,7 @@
     border-color 0.3s ease,
     box-shadow 0.3s ease;
 }
+
 .process-step:hover,
 .process-step--active {
   border-color: rgba(249, 115, 22, 0.35);
@@ -111,6 +95,7 @@
 .process-step--active .process-step-title {
   color: var(--accent);
 }
+
 .process-step--high {
   padding-top: 0;
 }
@@ -212,7 +197,7 @@
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {
   .process {
-    padding: 6rem 2rem 4rem;
+    padding: var(--section-gap) 2rem 4rem;
   }
 
   .process-steps {
