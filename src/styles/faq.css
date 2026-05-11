@@ -54,12 +54,22 @@
   backdrop-filter: blur(12px);
   overflow: hidden;
   transition: border-color 0.3s ease;
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+}
+
+.faq-item.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .faq-item.open {
   border-color: rgba(249, 115, 22, 0.3);
 }
-
 /* ─── Question ───────────────────────────────────────────── */
 .faq-question {
   width: 100%;

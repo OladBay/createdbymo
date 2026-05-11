@@ -47,7 +47,10 @@ const faqs = [
     <div class="faq-list">
       {
         faqs.map((item, i) => (
-          <div class={`faq-item ${i === 0 ? "open" : ""}`}>
+          <div
+            class={`faq-item ${i === 0 ? "open" : ""}`}
+            style={`--item-index: ${i}`}
+          >
             <button
               class="faq-question"
               aria-expanded={i === 0 ? "true" : "false"}
@@ -70,6 +73,27 @@ const faqs = [
 <script>
   const items = document.querySelectorAll<HTMLElement>(".faq-item");
 
+  // ─── Stacked entrance animation ───────────────────────────
+  const listObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          items.forEach((item, i) => {
+            setTimeout(() => {
+              item.classList.add("in-view");
+            }, i * 80);
+          });
+          listObserver.disconnect();
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  const list = document.querySelector<HTMLElement>(".faq-list");
+  if (list) listObserver.observe(list);
+
+  // ─── Accordion ────────────────────────────────────────────
   items.forEach((item) => {
     const btn = item.querySelector<HTMLElement>(".faq-question");
     const icon = btn?.querySelector<HTMLElement>("i");
@@ -77,7 +101,6 @@ const faqs = [
     btn?.addEventListener("click", () => {
       const isOpen = item.classList.contains("open");
 
-      // Close all
       items.forEach((el) => {
         el.classList.remove("open");
         el.querySelector("button")?.setAttribute("aria-expanded", "false");
@@ -88,7 +111,6 @@ const faqs = [
         }
       });
 
-      // Open clicked if it was closed
       if (!isOpen) {
         item.classList.add("open");
         btn?.setAttribute("aria-expanded", "true");

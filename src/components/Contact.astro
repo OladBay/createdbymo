@@ -1,0 +1,132 @@
+---
+import "../styles/contact.css";
+---
+
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <!-- Header -->
+    <div class="contact-header">
+      <h2 class="contact-headline">
+        This Could Be <em class="contact-headline-accent"
+          >The Best Decision You Make Today.</em
+        >
+      </h2>
+      <p class="contact-subtext">
+        One call with Mo. Completely free. No commitment.
+      </p>
+    </div>
+
+    <!-- Body -->
+    <div class="contact-body">
+      <!-- Left — Book a Call -->
+      <div class="contact-card contact-card--calendly">
+        <p class="contact-card-label">
+          <i class="fa-solid fa-calendar"></i>
+          Book a Free Call
+        </p>
+        <p class="contact-calendly-body">
+          Pick a time that works for you. Mo will jump on a free 30-minute call
+          to talk through your project, your vision, and how we can bring it to
+          life.
+        </p>
+        <button
+          class="contact-calendly-btn"
+          onclick="Calendly.initPopupWidget({url: 'https://calendly.com/oladbay/30min'}); return false;"
+        >
+          <i class="fa-solid fa-calendar"></i>
+          Pick a Time
+        </button>
+        <div class="contact-calendly-note">
+          <i class="fa-solid fa-clock"></i>
+          30 minutes · Free · No commitment
+        </div>
+      </div>
+
+      <!-- Right — WhatsApp -->
+      <div class="contact-card contact-card--whatsapp">
+        <p class="contact-card-label">
+          <i class="fa-brands fa-whatsapp"></i>
+          Message Mo
+        </p>
+        <p class="contact-whatsapp-body">
+          Prefer to chat first? Send Mo a message directly on WhatsApp and get a
+          response within 24 hours.
+        </p>
+        <a
+          href="https://wa.me/2349055772873?text=Hey%20Mo%2C%20I%20need%20a%20video%20editor%20who%20gets%20it.%20Can%20we%20talk%3F"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-whatsapp-btn"
+        >
+          <i class="fa-brands fa-whatsapp"></i>
+          Chat on WhatsApp
+        </a>
+        <div class="contact-whatsapp-note">
+          <i class="fa-solid fa-clock"></i>
+          Typically responds within 24 hours
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Calendly popup script -->
+<link
+  href="https://assets.calendly.com/assets/external/widget.css"
+  rel="stylesheet"
+/>
+<script
+  src="https://assets.calendly.com/assets/external/widget.js"
+  type="text/javascript"
+  async></script>
+
+<script>
+  // ─── Card spring entrance ─────────────────────────────────
+  const cards = document.querySelectorAll<HTMLElement>(".contact-card");
+
+  const cardObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const card = entry.target as HTMLElement;
+          const index = Array.from(cards).indexOf(card);
+          setTimeout(() => {
+            card.classList.add("in-view");
+            const children = card.querySelectorAll<HTMLElement>(
+              ".contact-card-label, .contact-calendly-body, .contact-whatsapp-body, .contact-calendly-btn, .contact-whatsapp-btn, .contact-calendly-note, .contact-whatsapp-note"
+            );
+            children.forEach((child, ci) => {
+              setTimeout(() => {
+                child.style.opacity = "1";
+                child.style.transform = "translateY(0)";
+              }, ci * 80);
+            });
+          }, index * 150);
+          cardObserver.unobserve(card);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  cards.forEach((card) => cardObserver.observe(card));
+
+  // ─── 3D tilt on hover ────────────────────────────────────
+  cards.forEach((card) => {
+    card.addEventListener("mousemove", (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const rotateX = ((y - cy) / cy) * -6;
+      const rotateY = ((x - cx) / cx) * 6;
+      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform =
+        "perspective(800px) rotateX(0) rotateY(0) translateY(0)";
+    });
+  });
+</script>

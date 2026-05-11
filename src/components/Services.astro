@@ -150,11 +150,26 @@ import "../styles/services.css";
 <script>
   const cards = document.querySelectorAll<HTMLElement>(".services-card");
 
+  // ─── Spring entrance ──────────────────────────────────────
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
+          const card = entry.target as HTMLElement;
+          const index = Array.from(cards).indexOf(card);
+          setTimeout(() => {
+            card.classList.add("in-view");
+            const children = card.querySelectorAll<HTMLElement>(
+              ".services-icon, .services-card-title, .services-card-body"
+            );
+            children.forEach((child, ci) => {
+              setTimeout(() => {
+                child.style.opacity = "1";
+                child.style.transform = "translateY(0)";
+              }, ci * 80);
+            });
+          }, index * 150);
+          observer.unobserve(card);
         }
       });
     },
@@ -162,4 +177,23 @@ import "../styles/services.css";
   );
 
   cards.forEach((card) => observer.observe(card));
+
+  // ─── 3D tilt on hover ─────────────────────────────────────
+  cards.forEach((card) => {
+    card.addEventListener("mousemove", (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const rotateX = ((y - cy) / cy) * -6;
+      const rotateY = ((x - cx) / cx) * 6;
+      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform =
+        "perspective(800px) rotateX(0) rotateY(0) translateY(0)";
+    });
+  });
 </script>

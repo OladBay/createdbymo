@@ -1,0 +1,224 @@
+/* ─── Contact ────────────────────────────────────────────── */
+.contact {
+  position: relative;
+  width: 100%;
+  padding: var(--section-gap) 2rem;
+  background: transparent;
+}
+
+.contact-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+.contact-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+}
+
+.contact-headline {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--text-primary);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+  max-width: 700px;
+}
+
+/* headline line styles removed */
+
+.contact-headline-accent {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.contact-subtext {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+/* ─── Body ───────────────────────────────────────────────── */
+.contact-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* ─── Card ───────────────────────────────────────────────── */
+.contact-card {
+  background: rgba(10, 10, 10, 0.5);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2rem;
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  opacity: 0;
+  transform: translateY(40px) scale(0.97) rotate(-0.5deg);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.contact-card.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotate(0deg);
+}
+
+.contact-card--calendly:hover {
+  border-color: rgba(249, 115, 22, 0.4);
+  box-shadow: 0 16px 50px rgba(249, 115, 22, 0.15);
+}
+
+.contact-card--whatsapp:hover {
+  border-color: rgba(37, 211, 102, 0.4);
+  box-shadow: 0 16px 50px rgba(37, 211, 102, 0.12);
+}
+
+.contact-card-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+/* ─── Calendly ───────────────────────────────────────────── */
+.contact-calendly-body {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.contact-calendly-btn {
+  background: var(--accent);
+  color: #0a0a0a;
+  padding: 0.9rem 1.75rem;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+  width: fit-content;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.contact-calendly-btn:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 8px 30px rgba(249, 115, 22, 0.35);
+}
+
+.contact-calendly-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+/* ─── WhatsApp ───────────────────────────────────────────── */
+.contact-whatsapp-body {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.contact-whatsapp-btn {
+  background: #25d366;
+  color: #0a0a0a;
+  padding: 0.9rem 1.75rem;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+  width: fit-content;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.contact-whatsapp-btn:hover {
+  background: #1ebe5d;
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.3);
+}
+
+.contact-whatsapp-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .contact {
+    padding: var(--section-gap) 1.25rem;
+  }
+
+  .contact-body {
+    grid-template-columns: 1fr;
+  }
+}
