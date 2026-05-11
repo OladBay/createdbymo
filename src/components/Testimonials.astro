@@ -55,7 +55,41 @@ const testimonials = [
     <div class="testimonials-carousel">
       <!-- Active card -->
       <div class="testimonials-active" id="testimonialsActive">
-        <!-- Photo -->
+        <!-- Mobile card stack -->
+        <div class="testimonials-mobile-stack" id="mobileStack">
+          <div
+            class="testimonials-mobile-card testimonials-mobile-card--left"
+            id="mobileCardLeft"
+          >
+            <img
+              src={testimonials[2].photo}
+              alt={testimonials[2].name}
+              id="mobileImgLeft"
+            />
+          </div>
+          <div
+            class="testimonials-mobile-card testimonials-mobile-card--active"
+            id="mobileCardActive"
+          >
+            <img
+              src={testimonials[0].photo}
+              alt={testimonials[0].name}
+              id="mobileImgActive"
+            />
+          </div>
+          <div
+            class="testimonials-mobile-card testimonials-mobile-card--right"
+            id="mobileCardRight"
+          >
+            <img
+              src={testimonials[1].photo}
+              alt={testimonials[1].name}
+              id="mobileImgRight"
+            />
+          </div>
+        </div>
+
+        <!-- Desktop photo -->
         <div class="testimonials-photo-wrap" id="testimonialsPhotoWrap">
           <img
             src={testimonials[0].photo}
@@ -63,29 +97,14 @@ const testimonials = [
             class="testimonials-photo"
             id="testimonialsPhoto"
           />
-          {
-            testimonials[0].hasVideo && (
-              <button
-                class="testimonials-play"
-                id="testimonialsPlay"
-                aria-label="Watch video"
-              >
-                <i class="fa-solid fa-play" />
-              </button>
-            )
-          }
-          {
-            !testimonials[0].hasVideo && (
-              <button
-                class="testimonials-play"
-                id="testimonialsPlay"
-                aria-label="Watch video"
-                style="display:none;"
-              >
-                <i class="fa-solid fa-play" />
-              </button>
-            )
-          }
+          <button
+            class="testimonials-play"
+            id="testimonialsPlay"
+            aria-label="Watch video"
+            style={testimonials[0].hasVideo ? "" : "display:none;"}
+          >
+            <i class="fa-solid fa-play"></i>
+          </button>
         </div>
 
         <!-- Content -->
@@ -109,7 +128,7 @@ const testimonials = [
         </div>
       </div>
 
-      <!-- Card stack -->
+      <!-- Desktop card stack -->
       <div class="testimonials-stack" id="testimonialsStack">
         <div class="testimonials-stack-card">
           <img
@@ -231,8 +250,29 @@ const testimonials = [
   const stackCard1 = document.getElementById("stackCard1") as HTMLImageElement;
   const stackCard2 = document.getElementById("stackCard2") as HTMLImageElement;
   const stackCard3 = document.getElementById("stackCard3") as HTMLImageElement;
+  const mobileImgLeft = document.getElementById(
+    "mobileImgLeft"
+  ) as HTMLImageElement;
+  const mobileImgActive = document.getElementById(
+    "mobileImgActive"
+  ) as HTMLImageElement;
+  const mobileImgRight = document.getElementById(
+    "mobileImgRight"
+  ) as HTMLImageElement;
 
-  // ─── Update stack ─────────────────────────────────────────
+  // ─── Update mobile stack ──────────────────────────────────
+  function updateMobileStack(currentIndex: number) {
+    const prev = (currentIndex - 1 + testimonials.length) % testimonials.length;
+    const next = (currentIndex + 1) % testimonials.length;
+    mobileImgLeft.src = testimonials[prev].photo;
+    mobileImgLeft.alt = testimonials[prev].name;
+    mobileImgActive.src = testimonials[currentIndex].photo;
+    mobileImgActive.alt = testimonials[currentIndex].name;
+    mobileImgRight.src = testimonials[next].photo;
+    mobileImgRight.alt = testimonials[next].name;
+  }
+
+  // ─── Update desktop stack ─────────────────────────────────
   function updateStack(currentIndex: number) {
     const prev2 =
       (currentIndex - 2 + testimonials.length) % testimonials.length;
@@ -285,6 +325,7 @@ const testimonials = [
       meta.textContent = `${t.role}, ${t.company}`;
       playBtn.style.display = t.hasVideo ? "flex" : "none";
       updateStack(current);
+      updateMobileStack(current);
       active.classList.remove("testimonials-active--exit");
       active.classList.add("testimonials-active--enter");
 
@@ -337,4 +378,5 @@ const testimonials = [
   // ─── Initial state ────────────────────────────────────────
   playBtn.style.display = testimonials[current].hasVideo ? "flex" : "none";
   updateStack(current);
+  updateMobileStack(current);
 </script>

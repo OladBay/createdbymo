@@ -69,16 +69,63 @@
   transform: translateY(0) scale(1);
 }
 
-/* ─── Photo ──────────────────────────────────────────────── */
-.testimonials-photo-wrap {
+/* ─── Mobile card stack ──────────────────────────────────── */
+.testimonials-mobile-stack {
+  display: block;
   position: relative;
   width: 100%;
-  height: 380px;
-  border-radius: 32px;
-  background: #111111;
-  box-shadow:
-    0 8px 40px rgba(249, 115, 22, 0.15),
-    0 20px 60px rgba(0, 0, 0, 0.5);
+  height: 320px;
+  overflow: visible;
+}
+
+.testimonials-mobile-card {
+  position: absolute;
+  width: 240px;
+  height: 300px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--bg-card);
+  transform-origin: bottom center;
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.testimonials-mobile-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.testimonials-mobile-card--left {
+  left: 50%;
+  width: 220px;
+  transform: translateX(-78%) rotate(-1.5deg) translateY(3px);
+  opacity: 0.15;
+  z-index: 1;
+}
+
+.testimonials-mobile-card--active {
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+  z-index: 3;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  box-shadow: 0 8px 40px rgba(249, 115, 22, 0.15);
+}
+
+.testimonials-mobile-card--right {
+  left: 50%;
+  width: 220px;
+  transform: translateX(-22%) rotate(1.5deg) translateY(3px);
+  opacity: 0.15;
+  z-index: 1;
+}
+/* ─── Photo (desktop) ────────────────────────────────────── */
+.testimonials-photo-wrap {
+  display: none;
 }
 
 .testimonials-photo {
@@ -129,6 +176,8 @@
   justify-content: flex-start;
   gap: 0.75rem;
   background: transparent;
+  text-align: center;
+  align-items: center;
 }
 
 .testimonials-stars {
@@ -160,7 +209,7 @@
   margin: 0;
 }
 
-/* ─── Card stack ─────────────────────────────────────────── */
+/* ─── Desktop stack ──────────────────────────────────────── */
 .testimonials-stack {
   display: none;
 }
@@ -338,10 +387,21 @@
     flex: 1;
   }
 
+  .testimonials-mobile-stack {
+    display: none;
+  }
+
   .testimonials-photo-wrap {
+    display: block;
+    position: relative;
     width: 280px;
     flex-shrink: 0;
     height: 360px;
+    border-radius: 32px;
+    background: #111111;
+    box-shadow:
+      0 8px 40px rgba(249, 115, 22, 0.15),
+      0 20px 60px rgba(0, 0, 0, 0.5);
   }
 
   .testimonials-content {
@@ -349,6 +409,8 @@
     flex-shrink: 0;
     height: 360px;
     justify-content: center;
+    text-align: left;
+    align-items: flex-start;
   }
 
   .testimonials-quote {
