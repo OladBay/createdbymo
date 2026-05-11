@@ -1,0 +1,91 @@
+---
+import "../styles/footer.css";
+---
+
+<footer class="footer">
+  <div class="footer-main">
+    <div class="footer-inner">
+      <!-- Left — Brand -->
+      <div class="footer-col footer-col--brand">
+        <a href="/" class="footer-logo">createdbymo</a>
+        <p class="footer-tagline">
+          Crafting stories that move people. From reels to brand films — made to
+          leave a lasting impression.
+        </p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="#" aria-label="TikTok" target="_blank">
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
+          <a href="#" aria-label="YouTube" target="_blank">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Centre — Newsletter -->
+      <div class="footer-col footer-col--newsletter">
+        <h3 class="footer-newsletter-headline">Level Up Your Content. Free.</h3>
+        <p class="footer-newsletter-subtext">
+          Subscribe for free editing tips, creative insights, and updates from
+          Mo.
+        </p>
+        <!-- Swap action URL with Mailchimp form action when ready -->
+        <form class="footer-form" action="#" method="post" target="_blank">
+          <input
+            type="email"
+            name="EMAIL"
+            class="footer-input"
+            placeholder="Your email address"
+            required
+          />
+          <button type="submit" class="footer-submit" aria-label="Subscribe">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Right — Nav -->
+      <div class="footer-col footer-col--nav">
+        <nav class="footer-nav">
+          <a href="#home" class="footer-nav-link">Home</a>
+          <a href="#about" class="footer-nav-link">About</a>
+          <a href="#work" class="footer-nav-link">Work</a>
+          <a href="#services" class="footer-nav-link">Services</a>
+          <a href="#faq" class="footer-nav-link">FAQ</a>
+          <a href="#contact" class="footer-nav-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 createdbymo. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  const cols = document.querySelectorAll<HTMLElement>(".footer-col");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          cols.forEach((col, i) => {
+            setTimeout(() => {
+              col.classList.add("in-view");
+            }, i * 120);
+          });
+          observer.disconnect();
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  const footer = document.querySelector<HTMLElement>(".footer-main");
+  if (footer) observer.observe(footer);
+</script>
