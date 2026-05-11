@@ -213,6 +213,16 @@
 }
 
 /* ─── Responsive ─────────────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .contact {
+    padding: var(--section-gap) 1.5rem;
+  }
+
+  .contact-inner {
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .contact {
     padding: var(--section-gap) 1.25rem;

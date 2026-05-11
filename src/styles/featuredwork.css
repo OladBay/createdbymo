@@ -349,7 +349,16 @@
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
+  .work {
+    padding: var(--section-gap) 1.5rem;
+  }
+
   .work-card {
-    flex: 0 0 calc((100% - 1.25rem) / 1.15);
+    flex: 0 0 calc((100% - 1.25rem) / 1.6);
+  }
+
+  .work-scroll-wrap {
+    overflow: visible;
+    width: 100%;
   }
 }

@@ -195,6 +195,31 @@
 }
 
 /* ─── Responsive ─────────────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .process {
+    padding: var(--section-gap) 1.5rem 0;
+  }
+
+  .process-steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    min-height: unset;
+  }
+
+  .process-step {
+    height: auto;
+    min-height: 280px;
+  }
+
+  .process-step--low {
+    padding-top: 0;
+  }
+
+  .process-header {
+    margin-bottom: 2.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .process {
     padding: var(--section-gap) 2rem 4rem;

@@ -23,6 +23,31 @@
   pointer-events: none;
   will-change: transform;
   filter: blur(0.3px);
+  opacity: 0;
+  animation:
+    heroIconFadeIn 1.2s ease forwards,
+    heroFloat var(--float-duration, 4s) ease-in-out infinite;
+  animation-delay: calc(0.8s + var(--float-delay, 0s)), var(--float-delay, 0s);
+  opacity: var(--final-opacity, 0.4);
+}
+
+@keyframes heroIconFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: var(--final-opacity, 0.4);
+  }
+}
+
+@keyframes heroFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
 }
 
 /* ─── Content ────────────────────────────────────────────── */
@@ -51,6 +76,7 @@
   border-radius: 100px;
   margin-bottom: 1rem;
   opacity: 0;
+  animation: heroFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
 }
 
 .hero-label-dot {
@@ -87,8 +113,9 @@
 
 .headline-line span {
   display: block;
-  transform: translateY(100%);
   opacity: 0;
+  transform: translateY(100%);
+  animation: heroSlideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .headline-line-1 span {
@@ -96,6 +123,7 @@
   font-weight: 700;
   font-size: clamp(2rem, 4.5vw, 3.75rem);
   color: var(--text-primary);
+  animation-delay: 0.4s;
 }
 
 .headline-line-2 span {
@@ -103,6 +131,7 @@
   font-weight: 700;
   font-size: clamp(2.25rem, 5.5vw, 4.5rem);
   color: var(--text-primary);
+  animation-delay: 0.55s;
 }
 
 .headline-accent {
@@ -119,6 +148,7 @@
   font-weight: 400;
   line-height: 1.7;
   opacity: 0;
+  animation: heroFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.75s forwards;
 }
 
 /* ─── CTA Row ────────────────────────────────────────────── */
@@ -130,6 +160,7 @@
   flex-wrap: wrap;
   margin-bottom: 2rem;
   opacity: 0;
+  animation: heroFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards;
 }
 
 .btn-primary {
@@ -142,7 +173,8 @@
   text-decoration: none;
   transition:
     background 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -152,6 +184,7 @@
 .btn-primary:hover {
   background: var(--accent-hover);
   box-shadow: 0 8px 30px rgba(249, 115, 22, 0.35);
+  transform: translateY(-2px);
 }
 
 .btn-secondary {
@@ -170,13 +203,15 @@
   transition:
     border-color 0.2s ease,
     color 0.2s ease,
-    background 0.2s ease;
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .btn-secondary:hover {
   border-color: rgba(255, 255, 255, 0.35);
   background: rgba(255, 255, 255, 0.05);
   color: var(--text-primary);
+  transform: translateY(-2px);
 }
 
 /* ─── Video Card ─────────────────────────────────────────── */
@@ -185,9 +220,10 @@
   z-index: 2;
   width: calc(100% - 3rem);
   max-width: 1400px;
-  margin: 0 auto 4rem;
+  margin: 0 auto;
   opacity: 0;
   transform: translateY(20px);
+  animation: heroFadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.05s forwards;
 }
 
 .video-card-inner {
@@ -287,6 +323,7 @@
   padding: 1.25rem 0;
   background: var(--bg-primary);
   opacity: 0;
+  animation: heroFadeUp 0.5s ease 1.4s forwards;
 }
 
 .ticker-track {
@@ -316,6 +353,29 @@
   flex-shrink: 0;
 }
 
+/* ─── Keyframes ──────────────────────────────────────────── */
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes ticker {
   0% {
     transform: translateX(0);
@@ -325,7 +385,31 @@
   }
 }
 
-/* ─── Responsive ─────────────────────────────────────────── */
+/* ─── Tablet ─────────────────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero {
+    padding: 6rem 1.5rem 0;
+    min-height: unset;
+  }
+
+  .hero-content {
+    max-width: 600px;
+  }
+
+  .hero-video-card {
+    width: calc(100% - 2rem);
+  }
+
+  .video-card-inner {
+    aspect-ratio: 16 / 9;
+  }
+
+  .hero-bg-icon {
+    display: none;
+  }
+}
+
+/* ─── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .hero {
     padding: 7rem 1.25rem 0;
@@ -338,7 +422,7 @@
   .hero-video-card {
     width: 100vw;
     margin-left: calc(-1.25rem);
-    margin-bottom: 2rem;
+    margin-bottom: 0;
   }
 
   .video-card-inner {

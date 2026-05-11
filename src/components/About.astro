@@ -73,69 +73,59 @@ import "../styles/about.css";
 </section>
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  // ─── Entrance animation ───────────────────────────────────
+  const imageCol = document.querySelector<HTMLElement>(".about-image-col");
+  const textCol = document.querySelector<HTMLElement>(".about-text-col");
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  gsap.fromTo(
-    ".about-image-col",
-    { opacity: 0, x: -60 },
-    {
-      opacity: 1,
-      x: 0,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".about",
-        start: "top 80%",
-      },
-    }
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          imageCol?.classList.add("in-view");
+          textCol?.classList.add("in-view");
+          observer.disconnect();
+        }
+      });
+    },
+    { threshold: 0.15 }
   );
 
-  gsap.fromTo(
-    ".about-text-col",
-    { opacity: 0, x: 60 },
-    {
-      opacity: 1,
-      x: 0,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".about",
-        start: "top 80%",
-      },
-    }
-  );
+  const section = document.querySelector<HTMLElement>(".about");
+  if (section) observer.observe(section);
 
+  // ─── Stats count up ───────────────────────────────────────
   const statNumbers =
     document.querySelectorAll<HTMLElement>(".about-stat-number");
 
-  statNumbers.forEach((el, i) => {
-    const target = parseInt(el.dataset.value || "0");
-    const suffix = el.dataset.suffix || "";
+  const statsObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          statNumbers.forEach((el, i) => {
+            const target = parseInt(el.dataset.value || "0");
+            const suffix = el.dataset.suffix || "";
+            const duration = 2000;
+            const step = duration / target;
+            let current = 0;
 
-    ScrollTrigger.create({
-      trigger: ".about-stats",
-      start: "top 85%",
-      once: true,
-      onEnter: () => {
-        gsap.to(
-          { val: 0 },
-          {
-            val: target,
-            duration: 2,
-            delay: i * 0.15,
-            ease: "power2.out",
-            onUpdate: function () {
-              el.textContent = Math.floor(this.targets()[0].val) + suffix;
-            },
-            onComplete: () => {
-              el.textContent = target + suffix;
-            },
-          }
-        );
-      },
-    });
-  });
+            setTimeout(() => {
+              const timer = setInterval(() => {
+                current += 1;
+                el.textContent = current + suffix;
+                if (current >= target) {
+                  clearInterval(timer);
+                  el.textContent = target + suffix;
+                }
+              }, step);
+            }, i * 150);
+          });
+          statsObserver.disconnect();
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  const stats = document.querySelector<HTMLElement>(".about-stats");
+  if (stats) statsObserver.observe(stats);
 </script>

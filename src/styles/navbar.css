@@ -25,6 +25,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+  position: relative;
 }
 
 .logo {
@@ -172,6 +173,37 @@ nav {
 
 .mobile-socials a:hover {
   color: var(--accent);
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  nav {
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .nav-links {
+    gap: 0.35rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .nav-links a {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  .nav-cta {
+    font-size: 0.75rem !important;
+    padding: 0.45rem 0.9rem !important;
+    white-space: nowrap;
+  }
+
+  .nav-socials {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {

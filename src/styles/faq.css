@@ -127,6 +127,12 @@
 }
 
 /* ─── Responsive ─────────────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .faq {
+    padding: var(--section-gap) 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .faq {
     padding: var(--section-gap) 1.25rem;
