@@ -1,0 +1,102 @@
+---
+import "../styles/faq.css";
+
+const faqs = [
+  {
+    question: "What file formats do you accept?",
+    answer:
+      "We accept all major video formats including MP4, MOV, AVI, ProRes, and raw camera files from RED, ARRI, and Blackmagic cameras. We can work with footage from any camera or device.",
+  },
+  {
+    question: "How long does a typical project take?",
+    answer:
+      "Turnaround time depends on the scope of the project. A short-form reel typically takes 2–3 days. A full brand film or long-form edit can take 5–10 days. We always agree on a deadline before starting.",
+  },
+  {
+    question: "Do you offer revisions?",
+    answer:
+      "Yes. Every project includes revision rounds so you can give feedback and we can refine the edit together. We keep going until it's exactly right.",
+  },
+  {
+    question: "Can you work with my existing footage?",
+    answer:
+      "Absolutely. Send us whatever you have — raw clips, photos, screen recordings, or anything else — and we'll shape it into something worth watching.",
+  },
+  {
+    question: "What if I need help after delivery?",
+    answer:
+      "We don't disappear after delivery. If you need tweaks, exports in different formats, or help with anything after the project is done, just reach out.",
+  },
+  {
+    question: "Do you offer monthly retainer packages?",
+    answer:
+      "Yes. If you need consistent content every month, a retainer package is the most cost-effective way to work together. Book a free call and we'll put something together that fits your needs.",
+  },
+];
+---
+
+<section class="faq" id="faq">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <h2 class="faq-headline">Frequently Asked Questions</h2>
+      <p class="faq-subtext">
+        Everything you need to know about working with Mo
+      </p>
+    </div>
+
+    <div class="faq-list">
+      {
+        faqs.map((item, i) => (
+          <div class={`faq-item ${i === 0 ? "open" : ""}`}>
+            <button
+              class="faq-question"
+              aria-expanded={i === 0 ? "true" : "false"}
+            >
+              <span>{item.question}</span>
+              <i
+                class={`fa-solid ${i === 0 ? "fa-circle-minus" : "fa-circle-plus"}`}
+              />
+            </button>
+            <div class="faq-answer">
+              <p>{item.answer}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const items = document.querySelectorAll<HTMLElement>(".faq-item");
+
+  items.forEach((item) => {
+    const btn = item.querySelector<HTMLElement>(".faq-question");
+    const icon = btn?.querySelector<HTMLElement>("i");
+
+    btn?.addEventListener("click", () => {
+      const isOpen = item.classList.contains("open");
+
+      // Close all
+      items.forEach((el) => {
+        el.classList.remove("open");
+        el.querySelector("button")?.setAttribute("aria-expanded", "false");
+        const i = el.querySelector("i");
+        if (i) {
+          i.classList.remove("fa-circle-minus");
+          i.classList.add("fa-circle-plus");
+        }
+      });
+
+      // Open clicked if it was closed
+      if (!isOpen) {
+        item.classList.add("open");
+        btn?.setAttribute("aria-expanded", "true");
+        if (icon) {
+          icon.classList.remove("fa-circle-plus");
+          icon.classList.add("fa-circle-minus");
+        }
+      }
+    });
+  });
+</script>
