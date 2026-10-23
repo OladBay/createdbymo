@@ -1,8 +1,7 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://OladBay.github.io",
-  base: "/createdbymo",
+  site: "https://kreatedbymo.com",
   devToolbar: {
     enabled: false,
   },
